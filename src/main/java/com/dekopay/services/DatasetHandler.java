@@ -1,12 +1,10 @@
 package com.dekopay.services;
 
-import java.io.File;
-import java.nio.file.Path;
+import com.dekopay.services.impl.XmlDatasetHandler;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 abstract public class DatasetHandler {
-    public ArrayList mergeDataset(ArrayList list) {
-        return null;
-    };
-    abstract public File readDataset(String path);
+    abstract public ArrayList readDataset(String file);
 }

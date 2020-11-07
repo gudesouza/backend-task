@@ -12,18 +12,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class UserFileHandler extends FileHandler {
+public class DefaultFileHandler extends FileHandler {
+    String dataType = "users";
 
     /**
      * Get all userFiles from the dir
      * @return
      */
     @Override
-    public List<String> getFiles() {
+    public List<String> getFiles(String type) {
         // all files user files
         try (Stream<Path> walk = Files.walk(Paths.get(FileConstants.USER_DIR + FileConstants.INPUT_FILE_DIR))) {
             List<String> fileList = walk.map(x -> x.toString())
-                    .filter(f -> f.contains("users")).collect(Collectors.toList());
+                    .filter(f -> f.contains(dataType)).collect(Collectors.toList());
 
             return fileList;
         } catch (IOException e) {

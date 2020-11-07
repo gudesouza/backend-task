@@ -1,7 +1,7 @@
 package com.dekopay.services;
 
 import com.dekopay.constants.FileConstants;
-import com.dekopay.services.impl.UserFileHandler;
+import com.dekopay.services.impl.DefaultFileHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ public class FileHandlerTest {
         expectedList.add(FileConstants.USER_DIR + "/data/in/users.xml");
         expectedList.forEach(System.out::println);
 
-        List<String> fileList = new UserFileHandler().getFiles();
+        List<String> fileList = new DefaultFileHandler().getFiles("users");
 
         Assertions.assertLinesMatch(expectedList, fileList);
 
