@@ -18,7 +18,7 @@ public class CsvDatasetHandler extends DatasetHandler {
         ArrayList<Map> datasetList = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String line = "";
-            String cvsSplitBy = ",";
+            String cvsSplitBy = FileConstants.CSV_DELIMITER;
             //use the first line to set headers
             String[] lineHeaders = bufferedReader.readLine().split(cvsSplitBy);
             //start the reading each line after the header

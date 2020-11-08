@@ -1,20 +1,20 @@
-package com.dekopay.entities;
+package com.dekopay.entities.user;
 
 import java.util.Date;
 
 public class User {
-    private int userId;
+    private String userId;
     private String firstName;
     private String lastName;
-    private String userName;
+    private String username;
     private String userType;
-    private Date lastLoginDate;
+    private String lastLoginTime;
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -34,12 +34,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getUserType() {
@@ -50,11 +50,11 @@ public class User {
         this.userType = userType;
     }
 
-    public Date getLastLoginDate() {
-        return lastLoginDate;
+    public String getLastLoginTime() {
+        return lastLoginTime;
     }
 
-    public void setLastLoginDate(Date lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
+    public void setLastLoginTime(String lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }
