@@ -1,6 +1,7 @@
 package com.dekopay.services;
 
 import com.dekopay.constants.FileConstants;
+import com.dekopay.services.impl.CsvDatasetHandler;
 import com.dekopay.services.impl.JsonDatasetHandler;
 import com.dekopay.services.impl.XmlDatasetHandler;
 import org.json.simple.JSONArray;
@@ -20,7 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class XmlDatasetHandlerTest {
+public class DatasetHandlerTest {
 
     @Test
     public void testReadXmlDataset() {
@@ -37,41 +38,13 @@ public class XmlDatasetHandlerTest {
     @Test
     public void testReadCsvDataset() {
         String csvFile = FileConstants.USER_DIR + "/data/in/users.csv";
-
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile))) {
-            Boolean hasHeader = true;
-            String line = "";
-            String cvsSplitBy = ",";
-            List<String> dataset = new ArrayList<>();
-            //skip the first line
-            if (hasHeader) {
-                bufferedReader.readLine();
+        ArrayList xmlDatasetList = new CsvDatasetHandler().readDataset(csvFile);
+        for (Object xmlDatasetMap : xmlDatasetList) {
+            Iterator<Map.Entry<String, String>> iterator = ((Map) xmlDatasetMap).entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, String> entry = iterator.next();
+                System.out.println(entry.getKey() + ":" + entry.getValue());
             }
-            while ((line = bufferedReader.readLine()) != null) {
-
-                // use comma as separator
-                String[] lineItem = line.split(cvsSplitBy);
-                for (String value : lineItem) {
-                    dataset.add(value);
-                    System.out.println("value: " + value);
-                }
-
-
-/*
-                System.out.println("userid: " + lineItem[0]);
-                System.out.println("firstname: " + lineItem[1]);
-                System.out.println("surname: " + lineItem[2]);
-                System.out.println("username: " + lineItem[3]);
-                System.out.println("type: " + lineItem[4]);
-                System.out.println("lastlogintime: " + lineItem[5]);
-                System.out.println();
- */
-
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
     }

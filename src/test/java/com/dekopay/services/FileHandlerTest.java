@@ -19,7 +19,7 @@ public class FileHandlerTest {
         expectedList.add(FileConstants.USER_DIR + "/data/in/users.xml");
         expectedList.forEach(System.out::println);
 
-        List<String> fileList = new DefaultFileHandler().getFiles("users");
+        List<String> fileList = new DefaultFileHandler().getFiles("users`");
 
         Assertions.assertLinesMatch(expectedList, fileList);
 
