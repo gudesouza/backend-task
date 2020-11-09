@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Responsible to handle the files, in this case we only have a Default implementation (DefaultFileHandler)
- * its current responsibilities are to get files of an entity type and get the MINE tyoe of a file
+ * its current responsibilities are to get files of an entity type and get the MINE type of a file
  */
 abstract public class FileHandler {
     /**
