@@ -2,6 +2,7 @@ package com.dekopay.entities.user.impl;
 
 import com.dekopay.entities.user.User;
 import com.dekopay.entities.user.UserDataPopulator;
+import com.dekopay.services.impl.XmlDatasetHandler;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,12 +27,14 @@ public class XmlUserDataPopulator extends UserDataPopulator {
 
     @Override
     public User populate(User user, Map data) {
-        user.setUserId((String) data.get(USER_ID));
-        user.setFirstName((String) data.get(FIRST_NAME));
-        user.setLastName((String) data.get(LAST_NAME));
-        user.setUsername((String) data.get(USERNAME));
-        user.setUserType((String) data.get(USER_TYPE));
-        user.setLastLoginTime((String) data.get(LAST_LOGIN_TIME));
+        XmlDatasetHandler xmlDatasetHandler = new XmlDatasetHandler();
+        Integer userId = Integer.parseInt(data.get(USER_ID).toString());
+        user.setUserId(userId);
+        user.setFirstName(data.get(FIRST_NAME).toString());
+        user.setLastName(data.get(LAST_NAME).toString());
+        user.setUsername(data.get(USERNAME).toString());
+        user.setUserType(data.get(USER_TYPE).toString());
+        user.setLastLoginTime(xmlDatasetHandler.converDateToIsoDate(data.get(LAST_LOGIN_TIME).toString()));
         return user;
     }
 
@@ -51,9 +54,9 @@ public class XmlUserDataPopulator extends UserDataPopulator {
                 Element user = document.createElement(USER);
                 root.appendChild(user);
 
-                // userid element
+                // userid element (Id needs to convert to string)
                 Element userId = document.createElement(USER_ID);
-                userId.appendChild(document.createTextNode(userObj.getUserId()));
+                userId.appendChild(document.createTextNode(userObj.getUserId().toString()));
                 user.appendChild(userId);
 
                 // firstname element
@@ -81,7 +84,7 @@ public class XmlUserDataPopulator extends UserDataPopulator {
                 lastLoginTime.appendChild(document.createTextNode(userObj.getLastLoginTime()));
                 user.appendChild(lastLoginTime);
             }
-            
+
             return document;
 
         } catch (ParserConfigurationException pce) {

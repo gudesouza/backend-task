@@ -2,6 +2,8 @@ package com.dekopay.entities.user.impl;
 
 import com.dekopay.entities.user.User;
 import com.dekopay.entities.user.UserDataPopulator;
+import com.dekopay.services.impl.JsonDatasetHandler;
+import com.dekopay.services.impl.JsonExportManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -18,22 +20,25 @@ public class JsonUserDataPopulator extends UserDataPopulator {
 
     @Override
     public User populate(User user, Map data) {
-        user.setUserId((String) data.get(USER_ID));
-        user.setFirstName((String) data.get(FIRST_NAME));
-        user.setLastName((String) data.get(LAST_NAME));
-        user.setUsername((String) data.get(USERNAME));
-        user.setUserType((String) data.get(USER_TYPE));
-        user.setLastLoginTime((String) data.get(LAST_LOGIN_TIME));
+        JsonDatasetHandler jsonDatasetHandler = new JsonDatasetHandler();
+        Integer userId = Integer.parseInt(data.get(USER_ID).toString());
+        user.setUserId(userId);
+        user.setFirstName(data.get(FIRST_NAME).toString());
+        user.setLastName( data.get(LAST_NAME).toString());
+        user.setUsername(data.get(USERNAME).toString());
+        user.setUserType(data.get(USER_TYPE).toString());
+        user.setLastLoginTime(jsonDatasetHandler.converDateToIsoDate(data.get(LAST_LOGIN_TIME).toString()));
         return user;
     }
 
     @Override
     public List<List<String>> mapUser(Collection<User> collection) {
+
         JSONArray list = new JSONArray();
         for (User user : collection) {
             //JSONObject jsonUser = new JSONObject();
             Map jsonUser = new LinkedHashMap();
-            jsonUser.put(USER_ID, user.getUserId());
+            jsonUser.put(USER_ID, user.getUserId().toString()); //(Id needs to convert to string)
             jsonUser.put(FIRST_NAME, user.getFirstName());
             jsonUser.put(LAST_NAME, user.getLastName());
             jsonUser.put(USERNAME, user.getUsername());

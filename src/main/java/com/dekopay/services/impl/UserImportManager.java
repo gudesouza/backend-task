@@ -88,6 +88,8 @@ public class UserImportManager implements ImportManager {
         for (Object dataset : datasets) {
             System.out.println(dataset);
         }
+        //sort User data by user id
+        userList.sort(Comparator.comparing(User::getUserId));
         return userList;
     }
 

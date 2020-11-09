@@ -2,6 +2,7 @@ package com.dekopay.entities.user.impl;
 
 import com.dekopay.entities.user.User;
 import com.dekopay.entities.user.UserDataPopulator;
+import com.dekopay.services.impl.CsvDatasetHandler;
 
 import java.util.*;
 
@@ -16,12 +17,14 @@ public class CsvUserDataPopulator extends UserDataPopulator {
 
     @Override
     public User populate(User user, Map data) {
-        user.setUserId((String) data.get(USER_ID));
-        user.setFirstName((String) data.get(FIRST_NAME));
-        user.setLastName((String) data.get(LAST_NAME));
-        user.setUsername((String) data.get(USERNAME));
-        user.setUserType((String) data.get(USER_TYPE));
-        user.setLastLoginTime((String) data.get(LAST_LOGIN_TIME));
+        CsvDatasetHandler csvDatasetHandler = new CsvDatasetHandler();
+        Integer userId = Integer.parseInt(data.get(USER_ID).toString());
+        user.setUserId(userId);
+        user.setFirstName(data.get(FIRST_NAME).toString());
+        user.setLastName(data.get(LAST_NAME).toString());
+        user.setUsername(data.get(USERNAME).toString());
+        user.setUserType(data.get(USER_TYPE).toString());
+        user.setLastLoginTime(csvDatasetHandler.converDateToIsoDate(data.get(LAST_LOGIN_TIME).toString()));
         return user;
     }
 
@@ -30,9 +33,9 @@ public class CsvUserDataPopulator extends UserDataPopulator {
         List list = new ArrayList();
         //add the csv header
         list.add(Arrays.asList(USER_ID, FIRST_NAME, LAST_NAME, USERNAME, USER_TYPE, LAST_LOGIN_TIME));
-        //add all the users
+        //add all the users (Id needs to convert to string)
         for (User user : collection) {
-            list.add(Arrays.asList(user.getUserId(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getUserType(), user.getLastLoginTime()));
+            list.add(Arrays.asList(user.getUserId().toString(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getUserType(), user.getLastLoginTime()));
         }
         List<List<String>> dataLines = list;
         return dataLines;

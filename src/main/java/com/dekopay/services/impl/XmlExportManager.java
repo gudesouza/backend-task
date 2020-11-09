@@ -26,7 +26,6 @@ public class XmlExportManager implements ExportManager {
     public void exportData(Collection collection) throws IOException {
 
         XmlUserDataPopulator xmlUserDataPopulator = new XmlUserDataPopulator();
-        //List<List<String>> dataLines = jsonUserDataPopulator.mapUser(collection);
         Document document = (Document) xmlUserDataPopulator.mapUser(collection);
         this.writeToFile(document, "users");
 
@@ -43,11 +42,6 @@ public class XmlExportManager implements ExportManager {
             DOMSource domSource = new DOMSource(document);
             StreamResult streamResult = new StreamResult(new File(FileConstants.USER_DIR + FileConstants.OUTPUT_FILE_DIR + "/" + fileName + FileConstants.XML_EXTENSION));
 
-            // If you use
-            // StreamResult result = new StreamResult(System.out);
-            // the output will be pushed to the standard output ...
-            // You can use that for debugging
-
             transformer.transform(domSource, streamResult);
 
             System.out.println("Successfully Saved XML file...");
@@ -55,14 +49,5 @@ public class XmlExportManager implements ExportManager {
         } catch (TransformerException tfe) {
             tfe.printStackTrace();
         }
-
-
-
-
-
-
-
-
-        System.out.println("Successfully Saved JSON file...");
     }
 }
