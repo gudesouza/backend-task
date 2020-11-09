@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-public class ImportManagerTest {
+public class ProcessTest {
     @Test
     public void testUserData() throws IOException {
         //instantiate userImportManager
@@ -17,7 +17,7 @@ public class ImportManagerTest {
 
         //start importing process
         Collection importedUsers = userImportManager.importData();
-        System.out.println("Test Starts here.....");
+        System.out.println("Process Test Started.....");
 
         //start exporting in Csv
         CsvExportManager csvExportManager = new CsvExportManager();
@@ -31,12 +31,5 @@ public class ImportManagerTest {
         XmlExportManager xmlExportManager = new XmlExportManager();
         xmlExportManager.exportData(importedUsers);
 
-
     }
-    /*public void mergeDatasets (ArrayList datasets) {
-        ArrayList mergedDataset = new ArrayList();
-        for (Object dataset : datasets) {
-
-        }
-    }*/
 }

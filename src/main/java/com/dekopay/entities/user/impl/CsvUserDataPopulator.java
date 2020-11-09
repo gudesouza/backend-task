@@ -31,12 +31,15 @@ public class CsvUserDataPopulator extends UserDataPopulator {
     @Override
     public List<List<String>> mapUser(Collection<User> collection) {
         List list = new ArrayList();
+
         //add the csv header
         list.add(Arrays.asList(USER_ID, FIRST_NAME, LAST_NAME, USERNAME, USER_TYPE, LAST_LOGIN_TIME));
+
         //add all the users (Id needs to convert to string)
         for (User user : collection) {
             list.add(Arrays.asList(user.getUserId().toString(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getUserType(), user.getLastLoginTime()));
         }
+
         List<List<String>> dataLines = list;
         return dataLines;
     }

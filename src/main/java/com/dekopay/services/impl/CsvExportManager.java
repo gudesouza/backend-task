@@ -19,26 +19,37 @@ public class CsvExportManager implements ExportManager {
 
 
     @Override
-    public void exportData(Collection collection) throws IOException {
-
+    public void exportData(Collection collection) {
+        //start exporting
         CsvUserDataPopulator csvUserDataPopulator = new CsvUserDataPopulator();
         List<List<String>> dataLines = csvUserDataPopulator.mapUser(collection);
         this.writeToFile(dataLines, "users");
-
     }
 
-    protected void writeToFile(List<List<String>> data, String fileName) throws IOException {
-        FileWriter csvWriter = new FileWriter(FileConstants.USER_DIR + FileConstants.OUTPUT_FILE_DIR + "/" + fileName + FileConstants.CSV_EXTENSION);
+    /**
+     * Responsible write to file
+     * @param data
+     * @param fileName
+     * @throws IOException
+     */
+    protected void writeToFile(List<List<String>> data, String fileName) {
 
-        for (List<String> rowData : data) {
-            csvWriter.append(String.join(",", rowData));
-            csvWriter.append("\n");
+        try {
+            FileWriter csvWriter = new FileWriter(FileConstants.USER_DIR + FileConstants.OUTPUT_FILE_DIR + "/" + fileName + FileConstants.CSV_EXTENSION);
+
+            for (List<String> rowData : data) {
+                csvWriter.append(String.join(",", rowData));
+                csvWriter.append("\n");
+            }
+
+            csvWriter.flush();
+            csvWriter.close();
+
+            System.out.println("Successfully Saved CSV file...");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        csvWriter.flush();
-        csvWriter.close();
-
-        System.out.println("Successfully Saved CSV file...");
     }
 
 

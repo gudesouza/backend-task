@@ -21,7 +21,7 @@ public class DefaultFileHandler extends FileHandler {
      */
     @Override
     public List<String> getFiles(String type) {
-        // all files user files
+        // all user files
         try (Stream<Path> walk = Files.walk(Paths.get(FileConstants.USER_DIR + FileConstants.INPUT_FILE_DIR))) {
             List<String> fileList = walk.map(x -> x.toString())
                     .filter(f -> f.contains(dataType)).collect(Collectors.toList());
@@ -30,11 +30,6 @@ public class DefaultFileHandler extends FileHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
-    }
-
-    @Override
-    public File createFile() {
         return null;
     }
 }

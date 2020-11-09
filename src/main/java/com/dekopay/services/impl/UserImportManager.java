@@ -16,81 +16,86 @@ public class UserImportManager implements ImportManager {
     public static final String DATA_TYPE = "users";
 
     @Override
-    public Collection importData() throws IOException {
-        //import users
-        //get all the user files
-        List<String> fileList = new DefaultFileHandler().getFiles(DATA_TYPE);
-        ArrayList datasets = new ArrayList();
-        List<User> userList = new ArrayList<>();
+    public Collection importData(){
 
-        for (String file : fileList) {
-            File fileObj = new File(file);
+        try {
+            //import users
+            //start getting all the user files
+            List<String> fileList = new DefaultFileHandler().getFiles(DATA_TYPE);
+            ArrayList datasets = new ArrayList();
+            List<User> userList = new ArrayList<>();
 
-            //identify the file mime type
-            DefaultFileHandler defaultFileHandler = new DefaultFileHandler();
-            String fileType = defaultFileHandler.getContentType(fileObj);
-            System.out.println(fileType);
+            for (String file : fileList) {
+                File fileObj = new File(file);
 
-            // start collection process for user
-            switch (fileType) {
-                case FileConstants.CSV_MIME_TYPE:
-                    //get CSV dataset
-                    ArrayList csvDataset = new CsvDatasetHandler().readDataset(file);
+                //identify the file mime type
+                DefaultFileHandler defaultFileHandler = new DefaultFileHandler();
+                String fileType = defaultFileHandler.getContentType(fileObj);
 
-                    for (Map userData : ((List<Map>) csvDataset)) {
-                        //Map mapUserData = (Map) userData;
+                // start collection process for user
+                switch (fileType) {
+                    case FileConstants.CSV_MIME_TYPE:
+                        //get CSV dataset
+                        ArrayList csvDataset = new CsvDatasetHandler().readDataset(file);
 
-                        //instantiate a user and populate is with the Csv populator
-                        User user = new User();
-                        CsvUserDataPopulator csvUserDataPopulator = new CsvUserDataPopulator();
-                        User userObj = csvUserDataPopulator.populate(user, userData);
+                        for (Map userData : ((List<Map>) csvDataset)) {
+                            //Map mapUserData = (Map) userData;
 
-                        //Add user to the List
-                        userList.add(userObj);
-                    }
-                    System.out.println("CSV");
-                    break;
-                case FileConstants.JSON_MIME_TYPE:
-                    //get JSON dataset
-                    ArrayList jsonDataset = new JsonDatasetHandler().readDataset(file);
+                            //instantiate a user and populate is with the Csv populator
+                            User user = new User();
+                            CsvUserDataPopulator csvUserDataPopulator = new CsvUserDataPopulator();
+                            User userObj = csvUserDataPopulator.populate(user, userData);
 
-                    for (Map userData : ((List<Map>) jsonDataset)) {
+                            //Add user to the List
+                            userList.add(userObj);
+                        }
+                        break;
+                    case FileConstants.JSON_MIME_TYPE:
+                        //get JSON dataset
+                        ArrayList jsonDataset = new JsonDatasetHandler().readDataset(file);
 
-                        //instantiate a user and populate is with the Csv populator
-                        User user = new User();
-                        JsonUserDataPopulator jsonUserDataPopulator = new JsonUserDataPopulator();
-                        User userObj = jsonUserDataPopulator.populate(user, userData);
+                        for (Map userData : ((List<Map>) jsonDataset)) {
 
-                        //Add user to the List
-                        userList.add(userObj);
-                    }
-                    System.out.println("JSON");
-                    break;
-                case FileConstants.XML_MIME_TYPE:
-                    //get XML dataset
-                    ArrayList xmlDataset = new XmlDatasetHandler().readDataset(file);
+                            //instantiate a user and populate is with the Csv populator
+                            User user = new User();
+                            JsonUserDataPopulator jsonUserDataPopulator = new JsonUserDataPopulator();
+                            User userObj = jsonUserDataPopulator.populate(user, userData);
 
-                    for (Map userData : ((List<Map>) xmlDataset)) {
+                            //Add user to the List
+                            userList.add(userObj);
+                        }
+                        break;
+                    case FileConstants.XML_MIME_TYPE:
+                        //get XML dataset
+                        ArrayList xmlDataset = new XmlDatasetHandler().readDataset(file);
 
-                        //instantiate a user and populate is with the Csv populator
-                        User user = new User();
-                        XmlUserDataPopulator xmlUserDataPopulator = new XmlUserDataPopulator();
-                        User userObj = xmlUserDataPopulator.populate(user, userData);
+                        for (Map userData : ((List<Map>) xmlDataset)) {
 
-                        //Add user to the List
-                        userList.add(userObj);
-                    }
-                    System.out.println("XML");
-                    break;
+                            //instantiate a user and populate is with the Csv populator
+                            User user = new User();
+                            XmlUserDataPopulator xmlUserDataPopulator = new XmlUserDataPopulator();
+                            User userObj = xmlUserDataPopulator.populate(user, userData);
+
+                            //Add user to the List
+                            userList.add(userObj);
+                        }
+                        break;
+                }
+
             }
+            for (Object dataset : datasets) {
+                System.out.println(dataset);
+            }
+            //sort User data by user id
+            userList.sort(Comparator.comparing(User::getUserId));
+            return userList;
 
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        for (Object dataset : datasets) {
-            System.out.println(dataset);
-        }
-        //sort User data by user id
-        userList.sort(Comparator.comparing(User::getUserId));
-        return userList;
+
+        return null;
+
     }
 
 }

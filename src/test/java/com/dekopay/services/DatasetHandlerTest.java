@@ -4,21 +4,8 @@ import com.dekopay.constants.FileConstants;
 import com.dekopay.services.impl.CsvDatasetHandler;
 import com.dekopay.services.impl.JsonDatasetHandler;
 import com.dekopay.services.impl.XmlDatasetHandler;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 public class DatasetHandlerTest {
@@ -61,6 +48,13 @@ public class DatasetHandlerTest {
             }
         }
 
+    }
+
+    @Test
+    public void testConverDateToIsoDate() {
+        DatasetHandler datasetHandler = new CsvDatasetHandler();
+        String convertedDate = datasetHandler.converDateToIsoDate("12-01-2015 12:01:34"); //2015-01-12T01:01:34.000+01:00
+        Assertions.assertEquals("2015-01-12T01:01:34.000+01:00", convertedDate);
     }
 
 

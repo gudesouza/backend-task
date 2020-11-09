@@ -23,7 +23,7 @@ import java.util.List;
 
 public class XmlExportManager implements ExportManager {
     @Override
-    public void exportData(Collection collection) throws IOException {
+    public void exportData(Collection collection)  {
 
         XmlUserDataPopulator xmlUserDataPopulator = new XmlUserDataPopulator();
         Document document = (Document) xmlUserDataPopulator.mapUser(collection);
@@ -31,8 +31,7 @@ public class XmlExportManager implements ExportManager {
 
     }
 
-    protected void writeToFile(Document document, String fileName) throws IOException {
-        //FileWriter xmlWriter = new FileWriter(FileConstants.USER_DIR + FileConstants.OUTPUT_FILE_DIR + "/" + fileName + FileConstants.XML_EXTENSION);
+    public void writeToFile(Document document, String fileName) {
 
         try {
             // create the xml file

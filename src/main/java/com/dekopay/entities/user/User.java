@@ -1,8 +1,10 @@
 package com.dekopay.entities.user;
 
-import java.util.Date;
-
+/**
+ * User entity
+ */
 public class User {
+
     private Integer userId;
     private String firstName;
     private String lastName;

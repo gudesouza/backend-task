@@ -3,9 +3,7 @@ package com.dekopay.entities.user.impl;
 import com.dekopay.entities.user.User;
 import com.dekopay.entities.user.UserDataPopulator;
 import com.dekopay.services.impl.JsonDatasetHandler;
-import com.dekopay.services.impl.JsonExportManager;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import java.util.*;
 

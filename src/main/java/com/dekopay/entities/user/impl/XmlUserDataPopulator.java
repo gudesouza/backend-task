@@ -3,7 +3,6 @@ package com.dekopay.entities.user.impl;
 import com.dekopay.entities.user.User;
 import com.dekopay.entities.user.UserDataPopulator;
 import com.dekopay.services.impl.XmlDatasetHandler;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -11,9 +10,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
+/**
+ * Respon
+ */
 public class XmlUserDataPopulator extends UserDataPopulator {
 
     private static final String USERS = "users";
@@ -24,6 +25,7 @@ public class XmlUserDataPopulator extends UserDataPopulator {
     private static final String USERNAME = "username";
     private static final String USER_TYPE = "type";
     private static final String LAST_LOGIN_TIME = "lastlogintime";
+
 
     @Override
     public User populate(User user, Map data) {

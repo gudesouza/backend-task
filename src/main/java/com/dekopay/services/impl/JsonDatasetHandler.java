@@ -12,21 +12,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JsonDatasetHandler extends DatasetHandler {
+
     @Override
     public ArrayList readDataset(String file) {
         //instantiate an ArrayList object so that we can add Map object into it
         ArrayList<Map> datasetList = new ArrayList<>();
+
         try {
             //instantiate Json parser and start parsing file reader to load json file
             JSONParser parser = new JSONParser();
             Object object = parser.parse(new FileReader(file));
+
             //because the json file is an array of objects so we use Json Array so we can loop through
-            //JSONObject jsonObject = (JSONObject) object;
             JSONArray jsonList = (JSONArray) object;
             for (Object lineItem : jsonList) {
                 //instantiate an datasetMap with Hash Map so thet we can add keypair value
                 Map<String, String> datasetMap = new HashMap<>();
                 JSONObject jsonObject = (JSONObject) lineItem;
+
                 //dynamically assign all the element so we can get all the fields from the json file
                 for (Object keyObject : jsonObject.keySet()) {
                     //start assigning the keypair field value
@@ -34,6 +37,7 @@ public class JsonDatasetHandler extends DatasetHandler {
                     Object valueObject = jsonObject.get(key);
                     datasetMap.put(key, valueObject.toString());
                 }
+
                 //now it's time to add the dataset Map into the ArrayList
                 datasetList.add(datasetMap);
             }

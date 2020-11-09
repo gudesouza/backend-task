@@ -6,13 +6,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+/**
+ * Responsible to handle the files
+ */
 abstract public class FileHandler {
-    //abstract method
+    /**
+     * Abstratct method and responsible to get files of a datatype
+     * @param type
+     * @return
+     */
     abstract public List<String> getFiles(String type);
-    abstract public File createFile();
-    /*public String getContentType(Path filePath) throws IOException {
-        return Files.probeContentType(filePath);
-    }*/
+
+    /**
+     * Responsible to get the MIME Type of a file
+     * @param file
+     * @return
+     * @throws IOException
+     */
     public String getContentType(File file) throws IOException {
         return Files.probeContentType(file.toPath());
     }
