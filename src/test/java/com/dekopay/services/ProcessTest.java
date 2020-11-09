@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ProcessTest {
     @Test
-    public void testUserData() throws IOException {
+    public void testUserProcess() throws IOException {
         //instantiate userImportManager
         UserImportManager userImportManager = new UserImportManager();
 
