@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ *
+ */
 public class UserImportManager implements ImportManager {
 
     public static final String DATA_TYPE = "users";
@@ -41,7 +44,7 @@ public class UserImportManager implements ImportManager {
                         for (Map userData : ((List<Map>) csvDataset)) {
                             //Map mapUserData = (Map) userData;
 
-                            //instantiate a user and populate is with the Csv populator
+                            //instantiate a user and populate it with the Csv populator
                             User user = new User();
                             CsvUserDataPopulator csvUserDataPopulator = new CsvUserDataPopulator();
                             User userObj = csvUserDataPopulator.populate(user, userData);
@@ -56,7 +59,7 @@ public class UserImportManager implements ImportManager {
 
                         for (Map userData : ((List<Map>) jsonDataset)) {
 
-                            //instantiate a user and populate is with the Csv populator
+                            //instantiate a user and populate it with the Csv populator
                             User user = new User();
                             JsonUserDataPopulator jsonUserDataPopulator = new JsonUserDataPopulator();
                             User userObj = jsonUserDataPopulator.populate(user, userData);
@@ -71,7 +74,7 @@ public class UserImportManager implements ImportManager {
 
                         for (Map userData : ((List<Map>) xmlDataset)) {
 
-                            //instantiate a user and populate is with the Csv populator
+                            //instantiate a user and populate it with the Csv populator
                             User user = new User();
                             XmlUserDataPopulator xmlUserDataPopulator = new XmlUserDataPopulator();
                             User userObj = xmlUserDataPopulator.populate(user, userData);
@@ -82,9 +85,6 @@ public class UserImportManager implements ImportManager {
                         break;
                 }
 
-            }
-            for (Object dataset : datasets) {
-                System.out.println(dataset);
             }
             //sort User data by user id
             userList.sort(Comparator.comparing(User::getUserId));

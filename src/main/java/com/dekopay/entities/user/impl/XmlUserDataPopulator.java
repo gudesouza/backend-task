@@ -12,9 +12,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.util.Collection;
 import java.util.Map;
 
-/**
- * Respon
- */
 public class XmlUserDataPopulator extends UserDataPopulator {
 
     private static final String USERS = "users";
