@@ -6,5 +6,5 @@ import java.util.Map;
 
 abstract public class UserDataPopulator {
     abstract public User populate(User object, Map data);
-    abstract public List<List<String>> mapUser(Collection<User> collection);
+    abstract public Object mapUser(Collection<User> collection);
 }
