@@ -6,6 +6,7 @@ import com.dekopay.entities.user.impl.CsvUserDataPopulator;
 import com.dekopay.entities.user.impl.JsonUserDataPopulator;
 import com.dekopay.entities.user.impl.XmlUserDataPopulator;
 import com.dekopay.services.ImportManager;
+import com.dekopay.services.datasetformation.impl.UserDatasetFormationManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,11 +36,13 @@ public class UserImportManager implements ImportManager {
                 DefaultFileHandler defaultFileHandler = new DefaultFileHandler();
                 String fileType = defaultFileHandler.getContentType(fileObj);
 
+                UserDatasetFormationManager userDatasetFormationManager = new UserDatasetFormationManager();
+
                 // start collection process for user
                 switch (fileType) {
                     case FileConstants.CSV_MIME_TYPE:
-                        //get CSV dataset
-                        ArrayList csvDataset = new CsvDatasetHandler().readDataset(file);
+                        //read CSV dataset
+                        ArrayList csvDataset = userDatasetFormationManager.getCsvReader().read(file);
 
                         for (Map userData : ((List<Map>) csvDataset)) {
                             //Map mapUserData = (Map) userData;
@@ -54,8 +57,8 @@ public class UserImportManager implements ImportManager {
                         }
                         break;
                     case FileConstants.JSON_MIME_TYPE:
-                        //get JSON dataset
-                        ArrayList jsonDataset = new JsonDatasetHandler().readDataset(file);
+                        //read JSON dataset
+                        ArrayList jsonDataset = userDatasetFormationManager.getJsonReader().read(file);
 
                         for (Map userData : ((List<Map>) jsonDataset)) {
 
@@ -69,8 +72,8 @@ public class UserImportManager implements ImportManager {
                         }
                         break;
                     case FileConstants.XML_MIME_TYPE:
-                        //get XML dataset
-                        ArrayList xmlDataset = new XmlDatasetHandler().readDataset(file);
+                        //read XML dataset
+                        ArrayList xmlDataset = userDatasetFormationManager.getXmlReader().read(file);
 
                         for (Map userData : ((List<Map>) xmlDataset)) {
 

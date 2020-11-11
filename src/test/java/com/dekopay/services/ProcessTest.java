@@ -27,7 +27,7 @@ public class ProcessTest {
         //start exporting in Json
         userExportationManager.getJsonExporter().export(importedUsers);
         //start exporting in Xml
-        userExportationManager.getJsonExporter().export(importedUsers);
+        userExportationManager.getXmlExporter().export(importedUsers);
 
     }
 }
