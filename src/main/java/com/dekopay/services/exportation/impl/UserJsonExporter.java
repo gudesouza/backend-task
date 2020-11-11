@@ -1,27 +1,24 @@
-package com.dekopay.services.impl;
+package com.dekopay.services.exportation.impl;
 
 import com.dekopay.constants.FileConstants;
 import com.dekopay.entities.user.impl.JsonUserDataPopulator;
-import com.dekopay.services.ExportManager;
+import com.dekopay.services.exportation.JsonExporter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import org.json.simple.JSONObject;
-import org.w3c.dom.Document;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-public class JsonExportManager implements ExportManager {
+public class UserJsonExporter implements JsonExporter {
 
     @Override
-    public void exportData(Collection collection) {
+    public void export(Collection data) {
+        System.out.println("Start Exporting User JSON... ");
         //start exporting
         JsonUserDataPopulator jsonUserDataPopulator = new JsonUserDataPopulator();
-        List<List<String>> list = jsonUserDataPopulator.mapUser(collection);
-        this.writeToFile(list, "users");
-
+        List<List<String>> list = jsonUserDataPopulator.mapUser(data);
+        this.writeToFile(list, FileConstants.USERS_EXPORT_NAME);
     }
 
     public void writeToFile(List<List<String>> data, String fileName) {

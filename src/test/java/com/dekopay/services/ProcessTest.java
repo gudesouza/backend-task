@@ -2,6 +2,7 @@ package com.dekopay.services;
 
 
 import com.dekopay.entities.user.User;
+import com.dekopay.services.exportation.impl.UserExportationManager;
 import com.dekopay.services.impl.*;
 import org.junit.jupiter.api.Test;
 
@@ -19,17 +20,14 @@ public class ProcessTest {
         Collection importedUsers = userImportManager.importData();
         System.out.println("Process Test Started.....");
 
+        //instantiate an Abstract Factory for user exportation
+        UserExportationManager userExportationManager = new UserExportationManager();
         //start exporting in Csv
-        CsvExportManager csvExportManager = new CsvExportManager();
-        csvExportManager.exportData(importedUsers);
-
+        userExportationManager.getCsvExporter().export(importedUsers);
         //start exporting in Json
-        JsonExportManager jsonExportManager = new JsonExportManager();
-        jsonExportManager.exportData(importedUsers);
-
+        userExportationManager.getJsonExporter().export(importedUsers);
         //start exporting in Xml
-        XmlExportManager xmlExportManager = new XmlExportManager();
-        xmlExportManager.exportData(importedUsers);
+        userExportationManager.getJsonExporter().export(importedUsers);
 
     }
 }

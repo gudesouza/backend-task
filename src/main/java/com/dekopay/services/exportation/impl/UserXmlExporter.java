@@ -1,34 +1,26 @@
-package com.dekopay.services.impl;
+package com.dekopay.services.exportation.impl;
 
 import com.dekopay.constants.FileConstants;
-import com.dekopay.entities.user.impl.JsonUserDataPopulator;
 import com.dekopay.entities.user.impl.XmlUserDataPopulator;
-import com.dekopay.services.ExportManager;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.dekopay.services.exportation.XmlExporter;
 import org.w3c.dom.Document;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 
-public class XmlExportManager implements ExportManager {
+public class UserXmlExporter implements XmlExporter {
+
     @Override
-    public void exportData(Collection collection)  {
-
+    public void export(Collection data) {
+        System.out.println("Start Exporting User XML...");
         XmlUserDataPopulator xmlUserDataPopulator = new XmlUserDataPopulator();
-        Document document = (Document) xmlUserDataPopulator.mapUser(collection);
-        this.writeToFile(document, "users");
-
+        Document document = (Document) xmlUserDataPopulator.mapUser(data);
+        this.writeToFile(document, FileConstants.USERS_EXPORT_NAME);
     }
 
     public void writeToFile(Document document, String fileName) {

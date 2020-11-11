@@ -1,29 +1,23 @@
-package com.dekopay.services.impl;
+package com.dekopay.services.exportation.impl;
 
 import com.dekopay.constants.FileConstants;
-import com.dekopay.entities.user.User;
 import com.dekopay.entities.user.impl.CsvUserDataPopulator;
-import com.dekopay.services.ExportManager;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
+import com.dekopay.services.exportation.CsvExporter;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Collection;
+import java.util.List;
 
-public class CsvExportManager implements ExportManager {
-
+public class UserCsvExporter implements CsvExporter {
 
     @Override
-    public void exportData(Collection collection) {
+    public void export(Collection data) {
+        System.out.println("Start Exporting User CSV...");
         //start exporting
         CsvUserDataPopulator csvUserDataPopulator = new CsvUserDataPopulator();
-        List<List<String>> dataLines = csvUserDataPopulator.mapUser(collection);
-        this.writeToFile(dataLines, "users");
+        List<List<String>> dataLines = csvUserDataPopulator.mapUser(data);
+        this.writeToFile(dataLines, FileConstants.USERS_EXPORT_NAME);
     }
 
     /**
@@ -51,6 +45,4 @@ public class CsvExportManager implements ExportManager {
         }
 
     }
-
-
 }
