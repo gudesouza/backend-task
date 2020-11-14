@@ -1,5 +1,6 @@
 package com.dekopay.services.exportation.impl.decorator;
 
+import com.dekopay.entities.user.User;
 import com.dekopay.services.exportation.FileHelper;
 
 import java.util.Collection;
@@ -13,7 +14,7 @@ public abstract class UserDecorator implements FileHelper {
         this.decoratedFile = fileHelper;
     }
 
-    public void doWrite(Collection data, String fileName) {
+    public void doWrite(Object data, String fileName) {
         decoratedFile.doWrite(data, fileName, null);
     }
 }

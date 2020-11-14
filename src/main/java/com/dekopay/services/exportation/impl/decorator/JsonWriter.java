@@ -1,6 +1,7 @@
 package com.dekopay.services.exportation.impl.decorator;
 
 import com.dekopay.constants.FileConstants;
+import com.dekopay.entities.user.User;
 import com.dekopay.entities.user.impl.CsvUserDataPopulator;
 import com.dekopay.entities.user.impl.JsonUserDataPopulator;
 import com.dekopay.services.exportation.FileHelper;
@@ -14,15 +15,10 @@ import java.util.List;
 public class JsonWriter implements FileHelper {
 
     @Override
-    public void doWrite(Collection data, String fileName, List headers) {
+    public void doWrite(Object data, String fileName, List headers) {
 
         //start exporting
-        System.out.println("Start Writing to Json...");
-        /**
-         * @// TODO: 13/11/2020 need to refactor this implementation for populating the data
-         */
-        JsonUserDataPopulator jsonUserDataPopulator = new JsonUserDataPopulator();
-        List<List<String>> list = jsonUserDataPopulator.mapUser(data, headers);
+        System.out.println("Start Writing to Json..."  + data.toString());
 
         try {
             //instantiate the file writer
@@ -30,7 +26,7 @@ public class JsonWriter implements FileHelper {
 
             //instantiate object mapper prettify the json
             ObjectMapper mapper = new ObjectMapper();
-            String jsonPretty = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(list);
+            String jsonPretty = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(data);
             jsonWriter.write(jsonPretty);
 
             //flush and close

@@ -1,13 +1,12 @@
 package com.dekopay.entities.user.impl;
 
 import com.dekopay.entities.user.User;
-import com.dekopay.entities.user.UserDataPopulator;
+import com.dekopay.entities.user.DataPopulator;
 import com.dekopay.services.datasetformation.impl.DefaultConverter;
-import org.json.simple.JSONArray;
 
 import java.util.*;
 
-public class JsonUserDataPopulator extends UserDataPopulator {
+public class JsonUserDataPopulator extends DataPopulator {
 
     private static final String USER_ID = "user_id";
     private static final String FIRST_NAME = "first_name";
@@ -28,21 +27,4 @@ public class JsonUserDataPopulator extends UserDataPopulator {
         return user;
     }
 
-    @Override
-    public List<List<String>> mapUser(Collection<User> collection, List headers) {
-
-        JSONArray list = new JSONArray();
-        for (User user : collection) {
-            //JSONObject jsonUser = new JSONObject();
-            Map jsonUser = new LinkedHashMap();
-            jsonUser.put(USER_ID, user.getUserId().toString()); //(Id needs to convert to string)
-            jsonUser.put(FIRST_NAME, user.getFirstName());
-            jsonUser.put(LAST_NAME, user.getLastName());
-            jsonUser.put(USERNAME, user.getUsername());
-            jsonUser.put(USER_TYPE, user.getUserType());
-            jsonUser.put(LAST_LOGIN_TIME, user.getLastLoginTime());
-            list.add(jsonUser);
-        }
-        return list;
-    }
 }

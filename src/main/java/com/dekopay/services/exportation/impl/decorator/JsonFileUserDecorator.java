@@ -1,10 +1,10 @@
 package com.dekopay.services.exportation.impl.decorator;
 
+import com.dekopay.entities.user.User;
 import com.dekopay.services.exportation.FileHelper;
+import org.json.simple.JSONArray;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class JsonFileUserDecorator extends UserDecorator {
 
@@ -20,10 +20,28 @@ public class JsonFileUserDecorator extends UserDecorator {
     }
 
     @Override
-    public void doWrite(Collection data, String fileName, List headers) {
-        decoratedFile.doWrite(data, fileName, getJsonHeaders());
+    public void doWrite(Object data, String fileName, List headers) {
+
+        JSONArray list = new JSONArray();
+        for (User user : (Collection<User>)data) {
+            //JSONObject jsonUser = new JSONObject();
+            Map jsonUser = new LinkedHashMap();
+            jsonUser.put(USER_ID, user.getUserId().toString()); //(Id needs to convert to string)
+            jsonUser.put(FIRST_NAME, user.getFirstName());
+            jsonUser.put(LAST_NAME, user.getLastName());
+            jsonUser.put(USERNAME, user.getUsername());
+            jsonUser.put(USER_TYPE, user.getUserType());
+            jsonUser.put(LAST_LOGIN_TIME, user.getLastLoginTime());
+            list.add(jsonUser);
+        }
+
+        decoratedFile.doWrite(list, fileName, getJsonHeaders());
     }
 
+    /**
+     * This can be used by populator
+     * @return
+     */
     public List getJsonHeaders() {
         return Arrays.asList(USER_ID, FIRST_NAME, LAST_NAME, USERNAME, USER_TYPE, LAST_LOGIN_TIME);
     }

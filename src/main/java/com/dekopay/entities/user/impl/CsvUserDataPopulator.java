@@ -1,12 +1,12 @@
 package com.dekopay.entities.user.impl;
 
 import com.dekopay.entities.user.User;
-import com.dekopay.entities.user.UserDataPopulator;
+import com.dekopay.entities.user.DataPopulator;
 import com.dekopay.services.datasetformation.impl.DefaultConverter;
 
 import java.util.*;
 
-public class CsvUserDataPopulator extends UserDataPopulator {
+public class CsvUserDataPopulator extends DataPopulator {
 
     private static final String USER_ID = "User ID";
     private static final String FIRST_NAME = "First Name";
@@ -27,21 +27,6 @@ public class CsvUserDataPopulator extends UserDataPopulator {
         return user;
     }
 
-    @Override
-    public List<List<String>> mapUser(Collection<User> collection, List headers) {
-        List list = new ArrayList();
-
-        //add the csv header
-        list.add(headers);
-
-        //add all the users (Id needs to convert to string)
-        for (User user : collection) {
-            list.add(Arrays.asList(user.getUserId().toString(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getUserType(), user.getLastLoginTime()));
-        }
-
-        List<List<String>> dataLines = list;
-        return dataLines;
-    }
 }
 
 

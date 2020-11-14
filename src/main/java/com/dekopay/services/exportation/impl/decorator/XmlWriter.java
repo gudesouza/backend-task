@@ -21,22 +21,17 @@ import java.util.List;
 public class XmlWriter implements FileHelper {
 
     @Override
-    public void doWrite(Collection data, String fileName, List headers) {
+    public void doWrite(Object data, String fileName, List headers) {
 
         //start exporting
-        System.out.println("Start Writing to Xml...");
-        /**
-         * @// TODO: 13/11/2020 need to refactor this implementation for populating the data
-         */
-        XmlUserDataPopulator xmlUserDataPopulator = new XmlUserDataPopulator();
-        Document document = xmlUserDataPopulator.mapUser(data, headers);
+        System.out.println("Start Writing to Xml..." + data.getClass());
 
         try {
             // create the xml file
             //transform the DOM Object to an XML File
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            DOMSource domSource = new DOMSource(document);
+            DOMSource domSource = new DOMSource((Document)data);
             StreamResult streamResult = new StreamResult(new File(FileConstants.USER_DIR + FileConstants.OUTPUT_FILE_DIR + "/" + fileName + FileConstants.XML_EXTENSION));
 
             transformer.transform(domSource, streamResult);

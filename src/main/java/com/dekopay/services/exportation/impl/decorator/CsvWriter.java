@@ -12,20 +12,15 @@ import java.util.List;
 public class CsvWriter implements FileHelper {
 
     @Override
-    public void doWrite(Collection data, String fileName, List headers) {
+    public void doWrite(Object data, String fileName, List headers) {
 
         //start writing
-        System.out.println("Start Writing to CSV...");
-        /**
-         * @// TODO: 13/11/2020 need to refactor this implementation for populating the data
-         */
-        CsvUserDataPopulator csvUserDataPopulator = new CsvUserDataPopulator();
-        List<List<String>> list = csvUserDataPopulator.mapUser(data, headers);
+        System.out.println("Start Writing to CSV..." + data.toString());
 
         try {
             FileWriter csvWriter = new FileWriter(FileConstants.USER_DIR + FileConstants.OUTPUT_FILE_DIR + "/" + fileName + FileConstants.CSV_EXTENSION);
 
-            for (List<String> rowData : list) {
+            for (List<String> rowData : (List<List<String>>)data) {
                 csvWriter.append(String.join(",", rowData));
                 csvWriter.append("\n");
             }
