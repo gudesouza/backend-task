@@ -1,6 +1,7 @@
 package com.dekopay.entities.user;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,5 +26,5 @@ abstract public class UserDataPopulator {
      * @param collection
      * @return
      */
-    abstract public Object mapUser(Collection<User> collection);
+    abstract public Object mapUser(Collection<User> collection, List header);
 }

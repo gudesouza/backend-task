@@ -1,6 +1,6 @@
-package com.dekopay.services.datasetformation.impl;
+package com.dekopay.services.importation.impl;
 
-import com.dekopay.services.datasetformation.XmlReader;
+import com.dekopay.services.importation.ImportStrategy;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -10,13 +10,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserXmlReader implements XmlReader {
-
+public class XmlMapping implements ImportStrategy {
     @Override
-    public ArrayList read(String file) {
+    public ArrayList<Map> doMapping(String file, String entityName) {
+
         //instantiate an ArrayList object so that we can add Map object into it
         ArrayList<Map> datasetList = new ArrayList<>();
 
@@ -28,8 +29,8 @@ public class UserXmlReader implements XmlReader {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.parse(fXmlFile);
 
-            // start the pointer from the user node
-            NodeList nodeList = document.getElementsByTagName("user");
+            // start the pointer from the entityName node assuming the node name is the equivalent to the entity name, e.g. user in this case
+            NodeList nodeList = document.getElementsByTagName(entityName);
 
             //loop the node elements
             for (int i = 0; i < nodeList.getLength(); i++ ) {
@@ -61,5 +62,6 @@ public class UserXmlReader implements XmlReader {
             e.printStackTrace();
         }
         return null;
+
     }
 }

@@ -1,19 +1,19 @@
-package com.dekopay.services.datasetformation.impl;
+package com.dekopay.services.importation.impl;
 
-import com.dekopay.services.datasetformation.JsonReader;
+import com.dekopay.services.importation.ImportStrategy;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserJsonReader implements JsonReader {
-
+public class JsonMapping implements ImportStrategy {
     @Override
-    public ArrayList read(String file) {
+    public ArrayList<Map> doMapping(String file, String entityName) {
         //instantiate an ArrayList object so that we can add Map object into it
         ArrayList<Map> datasetList = new ArrayList<>();
 

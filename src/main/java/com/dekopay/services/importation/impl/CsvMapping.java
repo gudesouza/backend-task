@@ -1,19 +1,20 @@
-package com.dekopay.services.datasetformation.impl;
+package com.dekopay.services.importation.impl;
 
 import com.dekopay.constants.FileConstants;
-import com.dekopay.services.datasetformation.CsvReader;
+import com.dekopay.services.importation.ImportStrategy;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserCsvReader implements CsvReader{
+public class CsvMapping implements ImportStrategy {
 
     @Override
-    public ArrayList read(String file) {
+    public ArrayList<Map> doMapping(String file, String entityName) {
         //instantiate an ArrayList object so that we can add Map object into it
         ArrayList<Map> datasetList = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
@@ -46,5 +47,4 @@ public class UserCsvReader implements CsvReader{
         }
         return null;
     }
-
 }

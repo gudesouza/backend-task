@@ -2,7 +2,7 @@ package com.dekopay.entities.user.impl;
 
 import com.dekopay.entities.user.User;
 import com.dekopay.entities.user.UserDataPopulator;
-import com.dekopay.services.impl.XmlDatasetHandler;
+import com.dekopay.services.datasetformation.impl.DefaultConverter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public class XmlUserDataPopulator extends UserDataPopulator {
@@ -26,19 +27,18 @@ public class XmlUserDataPopulator extends UserDataPopulator {
 
     @Override
     public User populate(User user, Map data) {
-        XmlDatasetHandler xmlDatasetHandler = new XmlDatasetHandler();
         Integer userId = Integer.parseInt(data.get(USER_ID).toString());
         user.setUserId(userId);
         user.setFirstName(data.get(FIRST_NAME).toString());
         user.setLastName(data.get(LAST_NAME).toString());
         user.setUsername(data.get(USERNAME).toString());
         user.setUserType(data.get(USER_TYPE).toString());
-        user.setLastLoginTime(xmlDatasetHandler.converDateToIsoDate(data.get(LAST_LOGIN_TIME).toString()));
+        user.setLastLoginTime(new DefaultConverter().converDateToIsoDate(data.get(LAST_LOGIN_TIME).toString()));
         return user;
     }
 
     @Override
-    public Document mapUser(Collection<User> collection) {
+    public Document mapUser(Collection<User> collection, List headers) {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

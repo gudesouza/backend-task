@@ -6,7 +6,7 @@ import com.dekopay.entities.user.impl.CsvUserDataPopulator;
 import com.dekopay.entities.user.impl.JsonUserDataPopulator;
 import com.dekopay.entities.user.impl.XmlUserDataPopulator;
 import com.dekopay.services.ImportManager;
-import com.dekopay.services.datasetformation.impl.UserDatasetFormationManager;
+import com.dekopay.services.importation.impl.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,15 +36,15 @@ public class UserImportManager implements ImportManager {
                 DefaultFileHandler defaultFileHandler = new DefaultFileHandler();
                 String fileType = defaultFileHandler.getContentType(fileObj);
 
-                UserDatasetFormationManager userDatasetFormationManager = new UserDatasetFormationManager();
 
                 // start collection process for user
                 switch (fileType) {
                     case FileConstants.CSV_MIME_TYPE:
                         //read CSV dataset
-                        ArrayList csvDataset = userDatasetFormationManager.getCsvReader().read(file);
+                        Import csvImport = new Import(new CsvMapping());
+                        ArrayList<Map> csvDataset = csvImport.executeImport(file, "user");
 
-                        for (Map userData : ((List<Map>) csvDataset)) {
+                        for (Map userData : csvDataset) {
                             //Map mapUserData = (Map) userData;
 
                             //instantiate a user and populate it with the Csv populator
@@ -58,9 +58,11 @@ public class UserImportManager implements ImportManager {
                         break;
                     case FileConstants.JSON_MIME_TYPE:
                         //read JSON dataset
-                        ArrayList jsonDataset = userDatasetFormationManager.getJsonReader().read(file);
+                        Import jsonImport = new Import(new JsonMapping());
+                        ArrayList<Map> jsonDataset = jsonImport.executeImport(file, "user");
 
-                        for (Map userData : ((List<Map>) jsonDataset)) {
+
+                        for (Map userData : jsonDataset) {
 
                             //instantiate a user and populate it with the Csv populator
                             User user = new User();
@@ -73,9 +75,10 @@ public class UserImportManager implements ImportManager {
                         break;
                     case FileConstants.XML_MIME_TYPE:
                         //read XML dataset
-                        ArrayList xmlDataset = userDatasetFormationManager.getXmlReader().read(file);
+                        Import xmlImport = new Import(new XmlMapping());
+                        ArrayList<Map> xmlDataset = xmlImport.executeImport(file, "user");
 
-                        for (Map userData : ((List<Map>) xmlDataset)) {
+                        for (Map userData : xmlDataset) {
 
                             //instantiate a user and populate it with the Csv populator
                             User user = new User();
@@ -89,7 +92,8 @@ public class UserImportManager implements ImportManager {
                 }
 
             }
-            //sort User data by user id
+            //sort User data by user id, this sort() method uses Strategy Pattern that takes comparator parameter
+            //Based on different implementation of Cpomparator interfaces, the Objects are getting sorted in different ways
             userList.sort(Comparator.comparing(User::getUserId));
             return userList;
 

@@ -1,7 +1,7 @@
 package com.dekopay.services;
 
 import com.dekopay.constants.FileConstants;
-import com.dekopay.services.impl.DefaultFileHandler;
+import com.dekopay.services.importation.impl.DefaultFileHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

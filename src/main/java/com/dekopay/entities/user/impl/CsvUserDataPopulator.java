@@ -2,7 +2,7 @@ package com.dekopay.entities.user.impl;
 
 import com.dekopay.entities.user.User;
 import com.dekopay.entities.user.UserDataPopulator;
-import com.dekopay.services.impl.CsvDatasetHandler;
+import com.dekopay.services.datasetformation.impl.DefaultConverter;
 
 import java.util.*;
 
@@ -17,23 +17,22 @@ public class CsvUserDataPopulator extends UserDataPopulator {
 
     @Override
     public User populate(User user, Map data) {
-        CsvDatasetHandler csvDatasetHandler = new CsvDatasetHandler();
         Integer userId = Integer.parseInt(data.get(USER_ID).toString());
         user.setUserId(userId);
         user.setFirstName(data.get(FIRST_NAME).toString());
         user.setLastName(data.get(LAST_NAME).toString());
         user.setUsername(data.get(USERNAME).toString());
         user.setUserType(data.get(USER_TYPE).toString());
-        user.setLastLoginTime(csvDatasetHandler.converDateToIsoDate(data.get(LAST_LOGIN_TIME).toString()));
+        user.setLastLoginTime(new DefaultConverter().converDateToIsoDate(data.get(LAST_LOGIN_TIME).toString()));
         return user;
     }
 
     @Override
-    public List<List<String>> mapUser(Collection<User> collection) {
+    public List<List<String>> mapUser(Collection<User> collection, List headers) {
         List list = new ArrayList();
 
         //add the csv header
-        list.add(Arrays.asList(USER_ID, FIRST_NAME, LAST_NAME, USERNAME, USER_TYPE, LAST_LOGIN_TIME));
+        list.add(headers);
 
         //add all the users (Id needs to convert to string)
         for (User user : collection) {

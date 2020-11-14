@@ -26,6 +26,10 @@ also responsible to map the data from a collection of user objects into differen
 Each file type have it's on implementation because of the data format are different for every file type, and the header/key/element
 have different names but representing the same thing. i.e. "User Type" / "user_type" / "type"
 
+## UserImportManager
+The UserImportManager is to top layer responsible for the importing process for the users where combining 
+the user list using java composition pattern with the ability to add user entries to a user list  
+
 ## User
 It's the user entity data
 
@@ -38,14 +42,14 @@ It's the user entity data
 * testReadXmlDataset
 * testReadCsvDataset
 
-## ExportManagerTest
+### ExportManagerTest
 * testCsvExport
 * testJsonExport
 * testXmlExport
 
-## FileHandlerTest
+### FileHandlerTest
 * testLoadUsersFiles
 
-# UserImportTest
+### UserImportTest
 * testImporData
 * testOrderOfData
