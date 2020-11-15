@@ -1,18 +1,16 @@
 package com.dekopay.services.exportation.impl.decorator;
 
 import com.dekopay.constants.FileConstants;
-import com.dekopay.entities.user.impl.CsvUserDataPopulator;
 import com.dekopay.services.exportation.FileHelper;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 public class CsvWriter implements FileHelper {
 
     @Override
-    public void doWrite(Object data, String fileName, List headers) {
+    public void doWrite(Object data, String fileName) {
 
         //start writing
         System.out.println("Start Writing to CSV..." + data.toString());

@@ -1,21 +1,16 @@
 package com.dekopay.services.exportation.impl.decorator;
 
 import com.dekopay.constants.FileConstants;
-import com.dekopay.entities.user.User;
-import com.dekopay.entities.user.impl.CsvUserDataPopulator;
-import com.dekopay.entities.user.impl.JsonUserDataPopulator;
 import com.dekopay.services.exportation.FileHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
 
 public class JsonWriter implements FileHelper {
 
     @Override
-    public void doWrite(Object data, String fileName, List headers) {
+    public void doWrite(Object data, String fileName) {
 
         //start exporting
         System.out.println("Start Writing to Json..."  + data.toString());

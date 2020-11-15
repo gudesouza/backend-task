@@ -19,6 +19,6 @@ abstract public class DataPopulator {
      * @param data
      * @return
      */
-    abstract public User populate(User object, Map data);
+    abstract public User populate(Object object, Map<String, String> data, Map<String, String> indexHeader);
 
 }

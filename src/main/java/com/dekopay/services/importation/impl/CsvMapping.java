@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +25,7 @@ public class CsvMapping implements ImportStrategy {
 
             //start the reading each line after the header
             while ((line = bufferedReader.readLine()) != null) {
-                //instantiate an datasetMap with Hash Map so thet we can add keypair value
+                //instantiate an datasetMap with Hash Map so that we can add keypair value
                 Map<String, String> datasetMap = new HashMap<>();
 
                 // use comma as separator to split the entries

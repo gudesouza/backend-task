@@ -2,11 +2,10 @@ package com.dekopay.services.impl;
 
 import com.dekopay.constants.FileConstants;
 import com.dekopay.entities.user.User;
-import com.dekopay.entities.user.impl.CsvUserDataPopulator;
-import com.dekopay.entities.user.impl.JsonUserDataPopulator;
-import com.dekopay.entities.user.impl.XmlUserDataPopulator;
+import com.dekopay.entities.user.impl.UserDataPopulator;
 import com.dekopay.services.ImportManager;
 import com.dekopay.services.importation.impl.*;
+import com.dekopay.services.importation.impl.decorator.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,13 +43,17 @@ public class UserImportManager implements ImportManager {
                         Import csvImport = new Import(new CsvMapping());
                         ArrayList<Map> csvDataset = csvImport.executeImport(file, "user");
 
+                        //get index header for user
+                        //UserCsvIndexHeaderDecorator userCsvIndexHeaderDecorator = new UserCsvIndexHeaderDecorator(new UserIndexHeader());
+                        IndexHeaderDecorator userCsvIndexHeaderDecorator = new IndexHeaderDecorator(new UserCsvIndexHeaderDecorator(new UserIndexHeader()));
+                        Map userCsvIndexHeader = userCsvIndexHeaderDecorator.getData();
+
                         for (Map userData : csvDataset) {
-                            //Map mapUserData = (Map) userData;
 
                             //instantiate a user and populate it with the Csv populator
                             User user = new User();
-                            CsvUserDataPopulator csvUserDataPopulator = new CsvUserDataPopulator();
-                            User userObj = csvUserDataPopulator.populate(user, userData);
+                            UserDataPopulator userDataPopulator = new UserDataPopulator();
+                            User userObj = userDataPopulator.populate(user, userData, userCsvIndexHeader);
 
                             //Add user to the List
                             userList.add(userObj);
@@ -61,13 +64,17 @@ public class UserImportManager implements ImportManager {
                         Import jsonImport = new Import(new JsonMapping());
                         ArrayList<Map> jsonDataset = jsonImport.executeImport(file, "user");
 
+                        //get index header for user
+                        //UserJsonIndexHeaderDecorator userJsonIndexHeaderDecorator = new UserJsonIndexHeaderDecorator(new UserIndexHeader());
+                        IndexHeaderDecorator userJsonIndexHeaderDecorator = new IndexHeaderDecorator(new UserJsonIndexHeaderDecorator(new UserIndexHeader()));
+                        Map userJsonIndexHeader = userJsonIndexHeaderDecorator.getData();
 
                         for (Map userData : jsonDataset) {
 
                             //instantiate a user and populate it with the Csv populator
                             User user = new User();
-                            JsonUserDataPopulator jsonUserDataPopulator = new JsonUserDataPopulator();
-                            User userObj = jsonUserDataPopulator.populate(user, userData);
+                            UserDataPopulator userDataPopulator = new UserDataPopulator();
+                            User userObj = userDataPopulator.populate(user, userData, userJsonIndexHeader);
 
                             //Add user to the List
                             userList.add(userObj);
@@ -78,12 +85,15 @@ public class UserImportManager implements ImportManager {
                         Import xmlImport = new Import(new XmlMapping());
                         ArrayList<Map> xmlDataset = xmlImport.executeImport(file, "user");
 
+                        IndexHeaderDecorator userXmlIndexHeaderDecorator = new IndexHeaderDecorator(new UserXmlIndexHeaderDecorator(new UserIndexHeader()));
+                        Map userXmlIndexHeader = userXmlIndexHeaderDecorator.getData();
+
                         for (Map userData : xmlDataset) {
 
                             //instantiate a user and populate it with the Csv populator
                             User user = new User();
-                            XmlUserDataPopulator xmlUserDataPopulator = new XmlUserDataPopulator();
-                            User userObj = xmlUserDataPopulator.populate(user, userData);
+                            UserDataPopulator userDataPopulator = new UserDataPopulator();
+                            User userObj = userDataPopulator.populate(user, userData, userXmlIndexHeader);
 
                             //Add user to the List
                             userList.add(userObj);

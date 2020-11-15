@@ -18,7 +18,7 @@ public class UserCsvExporter implements CsvExporter {
         //start exporting
         FileHelper csvWriter = new CsvWriter();
         FileHelper csvUserFile = new CsvFileUserDecorator(csvWriter);
-        csvUserFile.doWrite(data, FileConstants.USERS_EXPORT_NAME, null);
+        csvUserFile.doWrite(data, FileConstants.USERS_EXPORT_NAME);
 
     }
 

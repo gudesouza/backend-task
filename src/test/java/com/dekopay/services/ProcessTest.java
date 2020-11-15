@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class ProcessTest {
-    @Test
+    /*@Test
     public void testUserProcess() throws IOException {
         //instantiate userImportManager
         UserImportManager userImportManager = new UserImportManager();
@@ -29,5 +29,5 @@ public class ProcessTest {
         //start exporting in Xml
         userExportationManager.getXmlExporter().export(importedUsers);
 
-    }
+    }*/
 }

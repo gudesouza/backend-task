@@ -18,7 +18,7 @@ public class UserJsonExporter implements JsonExporter {
         //start exporting
         FileHelper jsonWriter = new JsonWriter();
         FileHelper jsonUserFile = new JsonFileUserDecorator(jsonWriter);
-        jsonUserFile.doWrite(data,  FileConstants.USERS_EXPORT_NAME, null);
+        jsonUserFile.doWrite(data,  FileConstants.USERS_EXPORT_NAME);
 
     }
 }

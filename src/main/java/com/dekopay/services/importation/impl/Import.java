@@ -3,7 +3,6 @@ package com.dekopay.services.importation.impl;
 import com.dekopay.services.importation.ImportStrategy;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Import {
 

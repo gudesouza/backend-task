@@ -1,10 +1,7 @@
 package com.dekopay.services.exportation.impl.decorator;
 
 import com.dekopay.constants.FileConstants;
-import com.dekopay.entities.user.impl.JsonUserDataPopulator;
-import com.dekopay.entities.user.impl.XmlUserDataPopulator;
 import com.dekopay.services.exportation.FileHelper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.w3c.dom.Document;
 
 import javax.xml.transform.Transformer;
@@ -13,15 +10,11 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
 
 public class XmlWriter implements FileHelper {
 
     @Override
-    public void doWrite(Object data, String fileName, List headers) {
+    public void doWrite(Object data, String fileName) {
 
         //start exporting
         System.out.println("Start Writing to Xml..." + data.getClass());
